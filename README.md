@@ -192,7 +192,7 @@ Output: Mean accuracy dan standard deviation untuk setiap model.
 Output: `model_comparison.png`, `decision_tree_plot.png`
  
 ---
-### Step 9 — Kesimpulan
+### Step 9: Kesimpulan
  
 Berdasarkan eksperimen dengan dataset Orange vs Grapefruit:
  
