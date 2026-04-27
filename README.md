@@ -26,11 +26,11 @@ Classification_Model/
 | Kolom      | Tipe    | Keterangan                           |
 |------------|---------|--------------------------------------|
 | `name`     | String  | Label kelas: `orange` / `grapefruit` |
-| `diameter` | Float   | Diameter buah (cm)                   |
-| `weight`   | Float   | Berat buah (gram)                    |
-| `red`      | Float   | Nilai warna merah (RGB)              |
-| `green`    | Float   | Nilai warna hijau (RGB)              |
-| `blue`     | Float   | Nilai warna biru (RGB)               |
+| `diameter` | Float   | Diameter buah (cm)  |
+| `weight`   | Float   | Berat buah (gram)    |
+| `red`      | Float   | Nilai warna merah (RGB) |
+| `green`    | Float   | Nilai warna hijau (RGB  |
+| `blue`     | Float   | Nilai warna biru (RGB)  |
 
 
 ## ⚙️ Instalasi & Cara Menjalankan
@@ -80,7 +80,7 @@ Output: `eda_plots.png`, `correlation_heatmap.png`
 | Langkah              | Detail                                              |
 |----------------------|-----------------------------------------------------|
 | **Label Encoding**   | Kolom `name` diubah jadi angka: `orange=1`, `grapefruit=0` |
-| **Feature Selection**| Fitur X: `diameter, weight, red, green, blue`       |
+| **Feature Selection**| Fitur X: `diameter, weight, red, green, blue`  |
 | **Train-Test Split** | 80% training, 20% testing, stratified, random_state=42 |
 | **Feature Scaling**  | StandardScaler — wajib untuk SVM                   |
  
@@ -164,10 +164,10 @@ Metrik yang digunakan untuk mengukur performa setiap model:
  
 | Metrik        | Keterangan                                           |
 |---------------|------------------------------------------------------|
-| **Accuracy**  | Proporsi prediksi yang benar dari seluruh data       |
-| **Precision** | Dari yang diprediksi positif, berapa yang benar      |
+| **Accuracy**  | Proporsi prediksi yang benar dari seluruh data |
+| **Precision** | Dari yang diprediksi positif, berapa yang benar  |
 | **Recall**    | Dari yang sebenarnya positif, berapa yang terdeteksi |
-| **F1-Score**  | Rata-rata harmonik antara Precision dan Recall       |
+| **F1-Score**  | Rata-rata harmonik antara Precision dan Recall  |
  
 Output: `confusion_matrices.png`
  
@@ -190,5 +190,44 @@ Output: Mean accuracy dan standard deviation untuk setiap model.
 - **Box Plot**: distribusi skor 5-Fold CV
 - **Decision Tree Plot**: visualisasi struktur pohon (max_depth=3 ditampilkan)
 Output: `model_comparison.png`, `decision_tree_plot.png`
+ 
+---
+### Step 9 — Kesimpulan
+ 
+Berdasarkan eksperimen dengan dataset Orange vs Grapefruit:
+ 
+| Aspek              | Decision Tree | Naive Bayes | SVM        |
+|--------------------|---------------|-------------|------------|
+| Akurasi            | Sangat Tinggi | Tinggi      | Tertinggi  |
+| Kecepatan Training | Cepat         | Sangat Cepat| Sedang     |
+| Membutuhkan Scaling| Tidak         | Tidak       | **Ya**     |
+| Interpretabilitas  | Tinggi ✅     | Sedang      | Rendah     |
+| Kompleksitas       | Rendah        | Sangat Rendah| Sedang    |
+ 
+**Model Terbaik: SVM** — menghasilkan akurasi tertinggi karena mampu menemukan batas keputusan yang optimal di ruang fitur yang lebih tinggi melalui kernel RBF.
+ 
+---
+ 
+## 📊 Output yang Dihasilkan
+ 
+| File                      | Isi                                       |
+|---------------------------|-------------------------------------------|
+| `eda_plots.png`           | Histogram distribusi fitur + pie chart  |
+| `correlation_heatmap.png` | Korelasi antar fitur |
+| `confusion_matrices.png`  | Confusion matrix ketiga model |
+| `model_comparison.png`    | Bar chart metrik + boxplot CV  |
+| `decision_tree_plot.png`  | Visualisasi decision Tree       |
+ 
+---
+ 
+## 🛠️ Library yang Digunakan
+ 
+| Library        | Fungsi                              |
+|----------------|-------------------------------------|
+| `pandas`       | Manipulasi dan analisis data  |
+| `numpy`        | Operasi numerik  |
+| `matplotlib`   | Visualisasi data   |
+| `seaborn`      | Visualisasi statistik   |
+| `scikit-learn` | Model ML, preprocessing, evaluasi  |
  
 ---
