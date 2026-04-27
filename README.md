@@ -75,7 +75,7 @@ Output: `eda_plots.png`, `correlation_heatmap.png`
  
 ---
 
- ### Step 3 — Preprocessing Data
+ ### Step 3: Preprocessing Data
  
 | Langkah              | Detail                                              |
 |----------------------|-----------------------------------------------------|
@@ -93,7 +93,7 @@ X_train_scaled = scaler.fit_transform(X_train)
  
 ---
  
-### Step 4 — Training Model
+### Step 4: Training Model
  
 #### 🌳 1. Decision Tree
 **Cara kerja**: Membangun pohon keputusan dengan membagi data berdasarkan fitur yang memberikan *information gain* tertinggi (Gini Index).
@@ -110,6 +110,6 @@ dt_model.fit(X_train, y_train)
 ```
  
 **Parameter penting**:
-- `max_depth=5` → membatasi kedalaman pohon agar tidak overfit
-- `criterion='gini'` → menggunakan Gini Impurity untuk pemilihan fitur
+- `max_depth=5`  membatasi kedalaman pohon agar tidak overfit
+- `criterion='gini'`  menggunakan Gini Impurity untuk pemilihan fitur
 ---
