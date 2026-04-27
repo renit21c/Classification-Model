@@ -1,5 +1,5 @@
 # Orange vs Grapefruit Classification
-Proyek klasifikasi buah orange dan grapefruit menggunakan tiga algoritma machine learning: Decision Tree, Naive Bayes, dan Support Vector Machine (SVM)
+Klasifikasi buah orange dan grapefruit menggunakan tiga algoritma machine learning: Decision Tree, Naive Bayes, dan Support Vector Machine (SVM)
 
 ## Struktur Project
 
@@ -95,7 +95,7 @@ X_train_scaled = scaler.fit_transform(X_train)
  
 ### Step 4: Training Model
  
-#### 🌳 1. Decision Tree
+#### 1. Decision Tree
 **Cara kerja**: Membangun pohon keputusan dengan membagi data berdasarkan fitur yang memberikan *information gain* tertinggi (Gini Index).
  
 ```python
@@ -112,4 +112,83 @@ dt_model.fit(X_train, y_train)
 **Parameter penting**:
 - `max_depth=5`  membatasi kedalaman pohon agar tidak overfit
 - `criterion='gini'`  menggunakan Gini Impurity untuk pemilihan fitur
+---
+
+#### 2. Naive Bayes (Gaussian)
+**Cara kerja**: Menghitung probabilitas kelas menggunakan Teorema Bayes dengan asumsi setiap fitur berdistribusi Gaussian (normal) dan independen satu sama lain.
+ 
+```python
+nb_model = GaussianNB()
+nb_model.fit(X_train, y_train)
+```
+ 
+**Kelebihan**: Sangat cepat, tidak perlu scaling  
+**Kelemahan**: Asumsi independensi fitur tidak selalu berlaku
+ 
+---
+ 
+#### 3. Support Vector Machine (SVM)
+**Cara kerja**: Mencari *hyperplane* optimal yang memisahkan kedua kelas dengan margin terbesar. Menggunakan kernel RBF untuk menangani data yang tidak linear.
+ 
+```python
+svm_model = SVC(
+    kernel='rbf',
+    C=1.0,
+    gamma='scale',
+    probability=True,
+    random_state=42
+)
+svm_model.fit(X_train_scaled, y_train)  # Wajib menggunakan data yang sudah di-scale
+```
+ 
+**Parameter penting**:
+- `kernel='rbf'` Radial Basis Function kernel untuk pola non-linear
+- `C=1.0` regularization parameter
+- `gamma='scale'` otomatis menentukan gamma berdasarkan jumlah fitur
+---
+
+### Step 5: Prediksi
+Model melakukan prediksi pada data test (`X_test`). SVM menggunakan `X_test_scaled`.
+ 
+```python
+y_pred_dt  = dt_model.predict(X_test)
+y_pred_nb  = nb_model.predict(X_test)
+y_pred_svm = svm_model.predict(X_test_scaled)
+```
+ 
+---
+ 
+### Step 6: Evaluasi Model
+ 
+Metrik yang digunakan untuk mengukur performa setiap model:
+ 
+| Metrik        | Keterangan                                           |
+|---------------|------------------------------------------------------|
+| **Accuracy**  | Proporsi prediksi yang benar dari seluruh data       |
+| **Precision** | Dari yang diprediksi positif, berapa yang benar      |
+| **Recall**    | Dari yang sebenarnya positif, berapa yang terdeteksi |
+| **F1-Score**  | Rata-rata harmonik antara Precision dan Recall       |
+ 
+Output: `confusion_matrices.png`
+ 
+---
+ 
+### Step 7: Cross Validation
+Cross-validation dilakukan untuk menguji apakah performa model konsisten, tidak hanya baik pada satu split data saja.
+ 
+```python
+scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
+```
+ 
+Output: Mean accuracy dan standard deviation untuk setiap model.
+ 
+---
+ 
+### Step 8: Visualisasi Hasil
+- **Confusion Matrices**: menampilkan True Positive, True Negative, False Positive, False Negative
+- **Bar Chart**: perbandingan Accuracy, Precision, Recall, F1-Score ketiga model
+- **Box Plot**: distribusi skor 5-Fold CV
+- **Decision Tree Plot**: visualisasi struktur pohon (max_depth=3 ditampilkan)
+Output: `model_comparison.png`, `decision_tree_plot.png`
+ 
 ---
